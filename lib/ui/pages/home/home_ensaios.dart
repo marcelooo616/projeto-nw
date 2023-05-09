@@ -3,8 +3,6 @@ import 'package:projeto_nw/data/repository/ensaio_repository.dart';
 import 'package:projeto_nw/entities/ensaio.dart';
 import 'package:projeto_nw/util/app_colors.dart';
 
-
-
 class MostrarEnsaioScreen extends StatefulWidget {
 
 
@@ -32,31 +30,39 @@ class _MostrarEnsaioScreenState extends State<MostrarEnsaioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundDark,
       appBar: AppBar(
-        title: Text('Todos os Ensaios'),
+        title: const Text('Todos os Ensaios'),
       ),
-      body: ListView.builder(
-        itemCount: _listaEnsaio.length,
-        itemBuilder: (BuildContext context, int index) {
-          final Ensaio ensaio = _listaEnsaio[index];
-          return ListTile(
-            title: Text(ensaio.titulo!),
-            subtitle: Text('${ensaio.data} - ${ensaio.horario}'),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () async {
-                await EnsaioDatabase.instance.deletarEnsaio(ensaio.id!);
-                _buscarEnsaio();
-              },
-            ),
-          );
-        },
+      body: Column(
+        children: [
+          ListView.builder(
+            itemCount: _listaEnsaio.length,
+            itemBuilder: (BuildContext context, int index) {
+              final Ensaio ensaio = _listaEnsaio[index];
+              return ListTile(
+                title: Text(ensaio.titulo!),
+                subtitle: Text('${ensaio.data} - ${ensaio.horario}'),
+                trailing: IconButton(
+                  icon:const Icon(Icons.delete),
+                  onPressed: () async {
+                    await EnsaioDatabase.instance.deletarEnsaio(ensaio.id!);
+                    _buscarEnsaio();
+                  },
+                ),
+              );
+
+            },
+          ),
+
+        ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/adicionar_ensaio');
         },
-        child: Icon(Icons.add),
+        child:const Icon(Icons.add),
       ),
     );
   }

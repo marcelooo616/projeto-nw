@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_nw/ui/widgets/widget_button_circular.dart';
+import 'package:projeto_nw/data/repository/musica_repository.dart';
+import 'package:projeto_nw/entities/musica.dart';
+import 'package:projeto_nw/ui/widgets/widget_button_icon_circular.dart';
 import 'package:projeto_nw/ui/widgets/widget_card_carouseu.dart';
 import 'package:projeto_nw/ui/widgets/widget_card_comum.dart';
-import 'package:projeto_nw/ui/widgets/widget_card_musica.dart';
-import 'package:projeto_nw/ui/widgets/widget_card_musica_home.dart';
+import 'package:projeto_nw/ui/widgets/widget_card_musica_secundario.dart';
 import 'package:projeto_nw/ui/widgets/widget_logo_marca.dart';
 import 'package:projeto_nw/util/app_colors.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 
@@ -19,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+   List<Musica> _maisUtilizadas = [];
+   List<Musica> _menosUtilizadas = [];
   final List<String> items = [
     "Dedique tempo para praticar diariamente e aprimore suas habilidades.",
     "Ouça uma grande variedade de música para expandir seu repertório.",
@@ -35,7 +37,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+   // _buscasMusicas();
+    maisutilizados();
+    menostilizados();
     atualizarSaudacao().then((value) {
       setState(() {
         saudacao = value;
@@ -52,7 +56,7 @@ class _HomePageState extends State<HomePage> {
       final horaFormatada = formatter.format(agora);
 
       // Atualizando a saudação de acordo com a hora
-      if (agora.hour < 12) {
+      if (agora.hour > 5 && agora.hour < 12) {
         return 'Olá! Bom dia';
       } else if (agora.hour < 18) {
         return 'Olá! Boa tarde';
@@ -65,6 +69,25 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+
+  Future<void> maisutilizados()async{
+    List<Musica> lista = await MusicaRepository.instance.listaTodasAsMusicas();
+    List<Musica> maisUtilizadas = lista.where((musica) => musica.contador! > 0).toList();
+    maisUtilizadas.sort((a, b) => b.contador!.compareTo(a.contador!));
+    maisUtilizadas = maisUtilizadas.take(6).toList();
+    setState(() {
+      _maisUtilizadas = maisUtilizadas;
+    });
+  }
+
+  Future<void> menostilizados()async{
+    List<Musica> lista = await MusicaRepository.instance.listaTodasAsMusicas();
+    lista.sort((a, b) => b.contador!.compareTo(a.contador!));
+    List<Musica> menosUtilizadas = lista.take(6).toList();
+    setState(() {
+      _menosUtilizadas = menosUtilizadas;
+    });
+  }
 
 
 
@@ -112,13 +135,13 @@ class _HomePageState extends State<HomePage> {
                 },
                 scrollDirection: Axis.horizontal,
               )),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ButtomCircular(
+              ButtomIconCircular(
                 titulo: 'Musicas',
                 icon: Icon(Icons.audiotrack),
                 onPressed: () {
@@ -126,14 +149,14 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, '/musicas_page');
                   },
               ),
-              ButtomCircular(
+              ButtomIconCircular(
                 titulo: 'Repertorio',
                 icon: Icon(Icons.queue_music),
                 onPressed: () {
-
+                  Navigator.pushNamed(context, '/repertorio_page');
                 },
               ),
-              ButtomCircular(
+              ButtomIconCircular(
                 titulo: 'Membros',
                 icon: Icon(Icons.account_circle),
                 onPressed: () {
@@ -142,7 +165,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(
+         const SizedBox(
             height: 25,
           ),
           //TODO lista de musicas mais utilizadas
@@ -150,7 +173,7 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   //color: AppColors.primaryColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.elliptical(30, 30),
@@ -163,34 +186,33 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       child: Text('Musicas mais utilizadas', style: TextStyle(color: AppColors.backgroundDarkGreen, fontSize: 20),),
                     ),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Container(
-                        constraints: BoxConstraints(
-                          minWidth: 400
-                        ),
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: AppColors.backgroundDark2,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                          ],
-                        ),
+                          constraints: const BoxConstraints(
+                              minWidth: 400
+                          ),
+                          height: 220,
+                          decoration: BoxDecoration(
+                              color: AppColors.backgroundDark2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Container(
+                            width: 400,
+                            child:_maisUtilizadas.isNotEmpty
+                                ? ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:_maisUtilizadas.length ,
+                                    itemBuilder: ( context, index){
+                                      final musicas = _maisUtilizadas[index];
+                                      return CardMusicaSecundario(
+                                        nomeDaMusica: musicas.titulo,
+                                        autor:musicas.autor,
+                                      );
+                                    }
+                            ) : Center(child: Text('Lista vazia', style: TextStyle(color: AppColors.backgroundColor, fontSize: 25, fontFamily: 'Varela' ),))
+                          )
                       ),
 
                     )
@@ -199,57 +221,53 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(height: 10,),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  //color: AppColors.primaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.elliptical(30, 30),
-                      topRight: Radius.elliptical(30, 30),
-                    )
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Text('Musicas menos utilizadas', style: TextStyle(color: AppColors.backgroundDarkGreen, fontSize: 20),),
-                    ),
-                    SizedBox(height: 15,),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
-                        constraints: BoxConstraints(
-                            minWidth: 400
-                        ),
-                        height: 200,
-                        decoration: BoxDecoration(
-                            color: AppColors.backgroundDark2,
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                            CardMusicaHome(),
-                          ],
-                        ),
+        const SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration:const BoxDecoration(
+                //color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.elliptical(30, 30),
+                    topRight: Radius.elliptical(30, 30),
+                  )
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Musicas menos utilizadas', style: TextStyle(color: AppColors.backgroundDarkGreen, fontSize: 20),),
+                  const SizedBox(height: 15,),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      constraints: const BoxConstraints(
+                          minWidth: 400
                       ),
+                      height: 220,
+                      decoration: BoxDecoration(
+                          color: AppColors.backgroundDark2,
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Container(
+                        width: 400,
+                        child: _menosUtilizadas.isNotEmpty
+                            ? ListView.builder(
+                               scrollDirection: Axis.horizontal,
+                                itemCount:_menosUtilizadas.length ,
+                                itemBuilder: ( context, index){
+                                  final musicas = _menosUtilizadas[index];
+                                  return CardMusicaSecundario(
+                                    nomeDaMusica: musicas.titulo,
+                                    autor:musicas.autor,
+                                  );
+                                }
+                              )
+                            : Center(child: Text('Lista vazia', style: TextStyle(color: AppColors.backgroundColor, fontSize: 25, fontFamily: 'Varela' ),))
+                      )
+                    ),
 
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ),
@@ -257,10 +275,10 @@ class _HomePageState extends State<HomePage> {
 
         ],
       ),
-      drawer: SafeArea(
+      /*drawer: SafeArea(
         child: Drawer(
           child: Container(
-            decoration: BoxDecoration(
+            decoration:const BoxDecoration(
               color: Colors.black,
             ),
             child: ListView(
@@ -275,13 +293,11 @@ class _HomePageState extends State<HomePage> {
                             BlendMode.colorBurn)),
                   ),
                 ),*/
-                SizedBox(
-                  height: 30,
-                ),
+               const SizedBox(height: 30,),
                 ListTile(
                   leading:
-                      Icon(Icons.account_circle, color: AppColors.accentColor),
-                  title: Text(
+                      const Icon(Icons.account_circle, color: AppColors.accentColor),
+                  title:const Text(
                     "Membros",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -289,13 +305,13 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing: const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.assignment, color: AppColors.accentColor),
-                  title: Text(
+                  leading:const Icon(Icons.assignment, color: AppColors.accentColor),
+                  title:const Text(
                     "Ensaios",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -303,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing:const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {
                     Navigator.push(
@@ -314,8 +330,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ListTile(
                   leading:
-                      Icon(Icons.article_rounded, color: AppColors.accentColor),
-                  title: Text(
+                  const Icon(Icons.article_rounded, color: AppColors.accentColor),
+                  title:const Text(
                     "Cursos",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -323,14 +339,14 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing:const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {},
                 ),
                 ListTile(
                   leading:
-                      Icon(Icons.queue_music, color: AppColors.accentColor),
-                  title: Text(
+                  const Icon(Icons.queue_music, color: AppColors.accentColor),
+                  title:const Text(
                     "Repertorio",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -338,13 +354,13 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing:const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.audiotrack, color: AppColors.accentColor),
-                  title: Text(
+                  leading:const Icon(Icons.audiotrack, color: AppColors.accentColor),
+                  title:const Text(
                     "Musicas",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -352,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing:const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {
                     Navigator.push(
@@ -362,9 +378,9 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.access_alarm,
+                  leading:const Icon(Icons.access_alarm,
                       color: AppColors.accentColor),
-                  title: Text(
+                  title:const Text(
                     "Cultos",
                     style: TextStyle(
                         fontFamily: "Montserrat",
@@ -372,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.accentColor),
                   ),
-                  trailing: Icon(Icons.arrow_forward_ios,
+                  trailing:const Icon(Icons.arrow_forward_ios,
                       size: 18, color: AppColors.accentColor),
                   onTap: () {},
                 ),
@@ -380,7 +396,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
+      ),*/
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_nw/util/app_colors.dart';
-class ButtomCircular extends StatelessWidget {
+class ButtomIconCircular extends StatelessWidget {
   String? titulo;
   final VoidCallback? onPressed;
   Icon? icon;
 
 
-  ButtomCircular({this.titulo, this.onPressed, this.icon});
+  ButtomIconCircular({this.titulo, this.onPressed, this.icon});
 
   @override
   Widget build(BuildContext context) {

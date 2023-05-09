@@ -38,12 +38,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   #flutter_icons: ^1.1.0
   sqflite: ^2.2.6
-  path_provider: ^1.6.27
+  path_provider: ^2.0.9
   provider: ^4.3.3
   carousel_slider: ^4.2.1
   material_design_icons_flutter: ^4.0.5955
   http: ^0.13.4
   intl: ^0.17.0
+  share: ^2.0.4
+  file_picker: ^5.2.10
+  #csv: ^4.0.4
+  flutter_colorpicker: ^1.0.3
+  json_annotation: ^4.4.0
 
 
 
@@ -75,6 +80,8 @@ flutter:
     - assets/images/ic_camera.png
     - assets/images/nw.jpg
     - assets/images/cd.jpg
+    - assets/images/evento.png
+    - assets/images/user.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -101,3 +108,37 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/static/Montserrat-Regular.ttf
+        - asset: fonts/static/Montserrat-Bold.ttf
+        - asset: fonts/static/Montserrat-Black.ttf
+        - asset: fonts/static/Montserrat-BlackItalic.ttf
+        - asset: fonts/static/Montserrat-BoldItalic.ttf
+        - asset: fonts/static/Montserrat-ExtraBold.ttf
+        - asset: fonts/static/Montserrat-ExtraBoldItalic.ttf
+        - asset: fonts/static/Montserrat-ExtraLight.ttf
+        - asset: fonts/static/Montserrat-ExtraLightItalic.ttf
+        - asset: fonts/static/Montserrat-Italic.ttf
+        - asset: fonts/static/Montserrat-Light.ttf
+        - asset: fonts/static/Montserrat-LightItalic.ttf
+        - asset: fonts/static/Montserrat-MediumItalic.ttf
+        - asset: fonts/static/Montserrat-Regular.ttf
+        - asset: fonts/static/Montserrat-SemiBold.ttf
+        - asset: fonts/static/Montserrat-SemiBoldItalic.ttf
+        - asset: fonts/static/Montserrat-ThinItalic.ttf
+    - family: Lato
+      fonts:
+        - asset: fonts/static/Lato-Black.ttf
+        - asset: fonts/static/Lato-BlackItalic.ttf
+        - asset: fonts/static/Lato-Bold.ttf
+        - asset: fonts/static/Lato-BoldItalic.ttf
+        - asset: fonts/static/Lato-Italic.ttf
+        - asset: fonts/static/Lato-Light.ttf
+        - asset: fonts/static/Lato-LightItalic.ttf
+        - asset: fonts/static/Lato-Regular.ttf
+        - asset: fonts/static/Lato-Thin.ttf
+    - family: Varela
+      fonts:
+        - asset: fonts/static/VarelaRound-Regular.ttf

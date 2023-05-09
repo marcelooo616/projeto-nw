@@ -4,7 +4,7 @@ import 'package:projeto_nw/entities/cantor.dart';
 import 'package:projeto_nw/entities/musica.dart';
 import 'package:projeto_nw/util/app_colors.dart';
 
-class CardMusica extends StatelessWidget {
+class CardMusicaPrimario extends StatelessWidget {
 
   Musica? musica;
 
@@ -13,7 +13,7 @@ class CardMusica extends StatelessWidget {
   String? tomDaMusica;
   int? idCantor;
 
-  CardMusica({this.nomeDaMusica, this.nomeDoAutor, this.tomDaMusica, this.idCantor});
+  CardMusicaPrimario({this.nomeDaMusica, this.nomeDoAutor, this.tomDaMusica, this.idCantor});
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +34,25 @@ class CardMusica extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: AppColors.backgroundColor,
+            color: Color(0xFF353840),
             
           ),
           child: ListTile(
-            title: Text(nomeDaMusica!),
+            title: Text(nomeDaMusica!,style: TextStyle(color: AppColors.backgroundColor, fontFamily: 'Varela')),
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
-                image: AssetImage('assets/images/nw.jpg'),
+                image: AssetImage('assets/images/cd.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
-            subtitle: Text(nomeDoAutor!),
+            subtitle: Text(nomeDoAutor!,style: TextStyle(color: AppColors.backgroundColor,  fontFamily: 'Varela'),),
             trailing: FutureBuilder<Cantor?>(
               future: CantorDatabaseHelper.instance.getCantorById(idCantor!),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final cantor = snapshot.data;
-                  return Text('Solo: ${cantor?.nome }', textAlign: TextAlign.end,);
+                  return Text('Solo: ${cantor?.nome }',style: TextStyle(color: AppColors.backgroundColor, fontFamily: 'Varela') ,textAlign: TextAlign.end,);
                 } else if (snapshot.hasError) {
                   return Text('Erro ao carregar o nome do cantor');
                 } else {

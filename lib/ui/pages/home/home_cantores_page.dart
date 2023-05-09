@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_nw/data/repository/cantor_repository.dart';
 import 'package:projeto_nw/entities/cantor.dart';
@@ -44,11 +43,13 @@ class _CantoresPageScreenState extends State<CantoresPageScreen> {
         ),
         child: ListView(
           children: [
+
             SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+
+              /*  Container(
                   margin: EdgeInsets.symmetric(vertical: 20),
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.1 ,
@@ -73,7 +74,7 @@ class _CantoresPageScreenState extends State<CantoresPageScreen> {
                         )
                     ),
                   ),
-                ),
+                ),*/
               ],
             ),
           /*  Container(
@@ -96,7 +97,7 @@ class _CantoresPageScreenState extends State<CantoresPageScreen> {
                 ),
               ),
             ),*/
-            CarouselSlider(
+           /* CarouselSlider(
                 items: _cantores
                     .map((element) => CardMenbro(
                   tomDeCanto: element.tomCanto,
@@ -119,8 +120,35 @@ class _CantoresPageScreenState extends State<CantoresPageScreen> {
                     print("MUDOU $reason");
                   },
                   scrollDirection: Axis.horizontal,
-                )),
+                )),*/
+
+            SizedBox(height: 50,),
+            Container(
+              height: 700,
+              child: ListView.builder(
+                itemCount: _cantores.length,
+                  itemBuilder: (context, index){
+                  final cantores = _cantores[index];
+                  return CardMenbro(
+                    nome: cantores.nome ,
+                    classificacao: cantores.classificacaoVocal,
+                  );
+                  }
+              ),
+            ),
+
+
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.backgroundDarkGreen,
+        onPressed: () {
+          Navigator.pushNamed(context, '/adicionar_cantor');
+        },
+        child: const Icon(
+          Icons.add,
+          color: AppColors.primaryColor,
         ),
       ),
       

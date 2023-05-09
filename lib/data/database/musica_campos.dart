@@ -1,8 +1,8 @@
 class MusicaCampos{
-  static final String id = 'id';
-  static final String titulo = 'titulo';
-  static final String autor = 'autor';
-  static final String tom = 'tom';
-  static final String idCantorSolo = 'idCantorSolo';
-  static final String contador = 'contador';
+  static const String id = 'id';
+  static const String titulo = 'titulo';
+  static const String autor = 'autor';
+  static const String tom = 'tom';
+  static const String idCantorSolo = 'idCantorSolo';
+  static const String contador = 'contador';
 }

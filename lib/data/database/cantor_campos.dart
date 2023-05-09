@@ -1,7 +1,7 @@
 class CantorCampos {
-  static final String id = 'id';
-  static final String nome = 'nome';
-  static final String idade = 'idade';
-  static final String tomCanto = 'tomCanto';
-  static final String classificacaoVocal = 'classificacaoVocal';
+  static const String id = 'id';
+  static const String nome = 'nome';
+  static const String idade = 'idade';
+  static const String tomCanto = 'tomCanto';
+  static const String classificacaoVocal = 'classificacaoVocal';
 }

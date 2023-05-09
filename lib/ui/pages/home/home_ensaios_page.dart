@@ -35,17 +35,17 @@ class _EnsaioPageState extends State<EnsaioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundDark,
       appBar: AppBar(
         title: LogoNewWine(),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+        padding:const EdgeInsets.fromLTRB(15, 20, 15, 20),
         itemCount: _listaDeEnsaio.length,
         itemBuilder: (BuildContext context, int index) {
           final Ensaio ensaio = _listaDeEnsaio[index];
           return InkWell(
             onTap: (){
-              print("[LOG] ensaio ${ensaio.toMap()}");
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -68,12 +68,13 @@ class _EnsaioPageState extends State<EnsaioPage> {
 
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.backgroundDarkGreen,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return AdicionarEnsaioScreen();
           }));
         },
-        child: Icon(Icons.add),
+        child:const Icon(Icons.add, color: AppColors.primaryColor,),
       ),
     );
   }

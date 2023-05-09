@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:projeto_nw/ui/pages/home/home_cantores_page.dart';
 import 'package:projeto_nw/ui/pages/home/home_musica_page.dart';
 import 'package:projeto_nw/ui/pages/home/home_page.dart';
+import 'package:projeto_nw/ui/pages/home/home_repertorios_page.dart';
 import 'package:projeto_nw/ui/pages/home_screen_state.dart';
+import 'package:projeto_nw/ui/pages/screens/detail_screen/detalhes_evento_page.dart';
+import 'package:projeto_nw/ui/pages/screens/detail_screen/detalhes_playlist_page.dart';
 import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_cantores_page.dart';
 import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_cifra_musical.dart';
+import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_ensaio_page.dart';
+import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_evento_page.dart';
 import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_musica_page.dart';
+import 'package:projeto_nw/ui/widgets/widget_lista_de_musicas.dart';
 import 'package:projeto_nw/util/app_colors.dart';
 
 
@@ -29,10 +35,15 @@ class MyApp extends StatelessWidget {
         '/home_page': (context) => HomePage(),
         '/musicas_page': (context) => MusicasPage(),
         '/adicionar_musica': (context) => AdicionarMusicaScreen(),
+        '/adicionar_ensaio': (context) => AdicionarEnsaioScreen(),
         '/adicionar_cantor': (context) => AdicionarCantorPage(),
         '/membros_page': (context) => CantoresPageScreen(),
-        //'/detalhes_musica': (context) => DetalhesMusica(),
+        '/repertorio_page': (context) => RepertorioPage(),
         '/adicionar_cifra': (context) => MinhaPagina(),
+        '/lista_de_musicas': (context) => ListaDeMusicas(),
+        '/detalhes_playlist': (context) => DetalhesPlaylist(),
+        '/adicionarEvento': (context) => AdicionarEventoPage(),
+        '/detalhesEvento': (context) => DetalhesEvento(),
       },
     );
   }

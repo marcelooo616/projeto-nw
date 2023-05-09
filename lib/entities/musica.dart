@@ -29,6 +29,7 @@ class Musica{
       'autor': autor,
       'tom': tom,
       'idCantorSolo': idCantorSolo,
+      'contador' : 0
 
     };
   }

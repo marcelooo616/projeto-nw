@@ -10,7 +10,7 @@ class MusicaDatabaseHelper implements ManipuladorDatabase {
   static final MusicaDatabaseHelper instance = MusicaDatabaseHelper._init();
   Database? _database;
 
-  static const int _version = 5;
+  static const int _version = 7;
 
   MusicaDatabaseHelper._init();
 
@@ -120,6 +120,9 @@ CREATE TABLE $tabelaMusicas (
       await criarTabela(db, newVersion);
     }
   }
+
+
+
 
   @override
   Future<Database?> dropDB() async {

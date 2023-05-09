@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_nw/ui/pages/home/home_ensaios_page.dart';
 import 'package:projeto_nw/util/app_colors.dart';
-import 'home/home_cursos_page.dart';
+import 'home/home_eventos_page.dart';
 
 import 'home/home_page.dart';
 
@@ -55,7 +55,7 @@ class _HomeScreenStateState extends State<HomeScreenState> {
                 label:"Ensaios",
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.article_rounded, size: 24.0),  label: "Cursos" ),
+                icon: Icon(Icons.calendar_month, size: 24.0),  label: "Eventos" ),
           ],
 
         ),

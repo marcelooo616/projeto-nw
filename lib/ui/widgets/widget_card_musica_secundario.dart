@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_nw/util/app_colors.dart';
 
-class CardMusicaHome extends StatelessWidget {
-  const CardMusicaHome({Key? key}) : super(key: key);
+class CardMusicaSecundario extends StatelessWidget {
+  String? nomeDaMusica;
+  String? autor;
+
+
+  CardMusicaSecundario({this.nomeDaMusica, this.autor});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +39,9 @@ class CardMusicaHome extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Vem me buscar', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.backgroundColor),),
+                  Text(nomeDaMusica!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.backgroundColor),),
                   SizedBox(height: 5,),
-                  Text('Jefferson e Suellen', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: AppColors.greyColor),),
+                  Text(autor!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: AppColors.greyColor),),
 
                 ],
               ),
@@ -45,8 +49,6 @@ class CardMusicaHome extends StatelessWidget {
           ],
         ),
       ),
-
-
     );
   }
 }

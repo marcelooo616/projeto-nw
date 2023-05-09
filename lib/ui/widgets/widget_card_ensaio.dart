@@ -25,11 +25,11 @@ class CardEnsaio extends StatelessWidget {
             bottomLeft: Radius.elliptical(20, 20),
             topLeft: Radius.elliptical(5, 5) ,
             topRight: Radius.elliptical(20, 20)),
-        color: AppColors.accentColor,
+        color: AppColors.backgroundDarkGreen,
       ),
       child: ListTile(
-        title: Text(titulo!.toUpperCase()),
-        subtitle: Text('${data} - ${horario}'),
+        title: Text(titulo!.toUpperCase(), style: TextStyle(fontFamily: 'Lato', fontSize: 25, fontWeight: FontWeight.w600),),
+        subtitle: Text('${data} - ${horario}', style: TextStyle(fontFamily: 'Lato'),),
         trailing: IconButton(
           icon: Icon(Icons.delete),
           onPressed: onPressed

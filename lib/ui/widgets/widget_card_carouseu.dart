@@ -9,7 +9,43 @@ class CardCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Card(
+      color: const Color(0xFF85FFBD),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      elevation: 4,
+      child: Container(
+        width: 500,
+        height: 200,
+        decoration: BoxDecoration(
+          gradient:const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors:  [
+              AppColors.backgroundDarkGreen,
+              Color(0xFFFC00FF),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child:  RichText(
+            text:  TextSpan(
+              style: TextStyle(fontSize: 16),
+              children: [
+
+                TextSpan(text: titulo!, style: TextStyle(fontSize: 25, fontFamily: 'Lato', fontWeight: FontWeight.w400, color: AppColors.primaryColor)),
+                WidgetSpan(child: Divider(height:5,color: AppColors.backgroundDark,thickness: 15,indent: 10, endIndent: 100),),
+
+                //TextSpan(text: '\n playlist ', style: TextStyle(fontSize: 60, fontFamily: 'Lato', fontWeight: FontWeight.w900, color: AppColors.backgroundDark2)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );/* Container(
       width: 500,
       height: 200,
       decoration: BoxDecoration(
@@ -43,7 +79,7 @@ class CardCarousel extends StatelessWidget {
           )
         ],
       ),
-    );
+    );*/
 
 
   }

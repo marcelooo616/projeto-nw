@@ -3,6 +3,7 @@ import 'package:projeto_nw/data/repository/cantor_repository.dart';
 import 'package:projeto_nw/data/repository/musica_repository.dart';
 import 'package:projeto_nw/entities/cantor.dart';
 import 'package:projeto_nw/entities/musica.dart';
+import 'package:projeto_nw/ui/widgets/widget_textField_customizavel.dart';
 import 'package:projeto_nw/util/app_colors.dart';
 
 class AdicionarMusicaScreen extends StatefulWidget {
@@ -77,7 +78,18 @@ class _AdicionarMusicaScreenState extends State<AdicionarMusicaScreen> {
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
+
+                TextFieldCustomizavel(
+                  controller: _tituloController,
+                  hintText: 'Nome da musica',
+                  labelText: 'Título',
+                  validatorText: 'O título é obrigatório',
+                  prefixIcon: Icon(Icons.title, color: AppColors.backgroundDarkGreen),
+                ),
+
+
+
+                /*  Container(
                     decoration: BoxDecoration(
                         color: AppColors.backgroundDark2,
                         borderRadius: BorderRadius.circular(20)),
@@ -106,11 +118,18 @@ class _AdicionarMusicaScreenState extends State<AdicionarMusicaScreen> {
                         return null;
                       },
                     ),
-                  ),
+                  ),*/
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
+                  TextFieldCustomizavel(
+                    controller: _autorController,
+                    hintText: 'Autor da musica',
+                    labelText: 'Autor',
+                    validatorText: 'O autor é obrigatório',
+                    prefixIcon: Icon(Icons.person, color: AppColors.backgroundDarkGreen),
+                  ),
+                 /* Container(
                     decoration: BoxDecoration(
                         color: AppColors.backgroundDark2,
                         borderRadius: BorderRadius.circular(10)),
@@ -137,42 +156,28 @@ class _AdicionarMusicaScreenState extends State<AdicionarMusicaScreen> {
                         return null;
                       },
                     ),
-                  ),
+                  ),*/
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.backgroundDark2,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextFormField(
-                      controller: _tomController,
-                      decoration: InputDecoration(
-                          hintText: 'Tom da musica',
-                          hintStyle: TextStyle(color: AppColors.backgroundDarkGreen.withOpacity(0.1)),
-                        prefixIcon: Icon(Icons.music_note, color: AppColors.backgroundDarkGreen),
-                          floatingLabelStyle: TextStyle(
-                              color: AppColors.backgroundDarkGreen
-                                  .withOpacity(0.3)),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                          // Define o padding com altura da label ajustada
-
-                          labelText: 'Tom',
-                          labelStyle:
-                              TextStyle(color: AppColors.backgroundDarkGreen)),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'O tom é obrigatório';
-                        }
-                        return null;
-                      },
-                    ),
+                  TextFieldCustomizavel(
+                    controller:  _tomController,
+                    hintText: 'Tom da musica',
+                    labelText: 'Tom',
+                    validatorText: 'O tom é obrigatório',
+                    prefixIcon: Icon(Icons.music_note, color: AppColors.backgroundDarkGreen),
                   ),
                   SizedBox(
                     height: 50,
+                  ),TextFieldCustomizavel(
+                    controller:  _nomeCantorController,
+                    hintText: 'Responsavel pelo solo',
+                    labelText: 'Cantor',
+                    validatorText: 'O Cantor é obrigatório',
+                    prefixIcon: Icon(Icons.mic_external_on, color: AppColors.backgroundDarkGreen),
+                    modal:  _abrirModalSemArgumento,
                   ),
-                  Container(
+                 /* Container(
                     decoration: BoxDecoration(
                         color: AppColors.backgroundDark2,
                         borderRadius: BorderRadius.circular(10)),
@@ -197,7 +202,7 @@ class _AdicionarMusicaScreenState extends State<AdicionarMusicaScreen> {
                         return null;
                       },
                     ),
-                  ),
+                  ),*/
                   SizedBox(height: 100),
                   ElevatedButton(
                     style: ButtonStyle(
@@ -224,6 +229,10 @@ class _AdicionarMusicaScreenState extends State<AdicionarMusicaScreen> {
         ],
       ),
     );
+  }
+
+  void _abrirModalSemArgumento() {
+    _abrirModal(context);
   }
 
   void _abrirModal(BuildContext context) {

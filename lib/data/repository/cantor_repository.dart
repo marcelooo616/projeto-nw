@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:projeto_nw/data/database/cantor_campos.dart';
 import 'package:projeto_nw/data/database/cantor_database_helper.dart';
 import 'package:projeto_nw/entities/cantor.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,6 +33,18 @@ Future<Cantor> adicionarCantor(Cantor cantor) async{
       return Cantor.fromMap(maps[i]);
     });
   }
+  Future<List<Cantor>> buscarCantoresPorIds(List<int> ids) async {
+    final Database db = await cantorHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      cantorHelper.tabelaCantor,
+      where: '${CantorCampos.id} IN (${ids.map((id) => '?').join(', ')})',
+      whereArgs: ids,
+    );
+    return List.generate(maps.length, (i) {
+      return Cantor.fromMap(maps[i]);
+    });
+  }
+
 
 
 }

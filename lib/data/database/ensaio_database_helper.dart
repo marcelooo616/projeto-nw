@@ -1,11 +1,16 @@
 
+import 'package:projeto_nw/data/database/cantor_campos.dart';
+import 'package:projeto_nw/data/database/cantor_database_helper.dart';
 import 'package:projeto_nw/data/database/ensaio_campos.dart';
+import 'package:projeto_nw/data/database/musica_campos.dart';
 import 'package:projeto_nw/interfaces/manipulador_database.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class EnsaioDatabaseHelper implements ManipuladorDatabase {
   static final EnsaioDatabaseHelper instance = EnsaioDatabaseHelper._();
+
+  static const int _version = 4;
 
   Database? _database;
   final tableEnsaio = 'ensaios';
@@ -17,12 +22,13 @@ class EnsaioDatabaseHelper implements ManipuladorDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'ensaios.db');
 
-    return await openDatabase(path, version: 1, onCreate: criarTabela);
+    return await openDatabase(path, version: _version, onCreate: criarTabela,onUpgrade: atualizarTabela,);
   }
 
   @override
   Future<void> criarTabela(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final integerType = 'INTEGER';
     final textType = 'TEXT NOT NULL';
     await db.execute('''
       CREATE TABLE $tableEnsaio (
@@ -72,7 +78,24 @@ class EnsaioDatabaseHelper implements ManipuladorDatabase {
   }
 
   @override
-  Future<void> atualizarTabela(Database db, int oldVersion, int newVersion) async {}
+  Future<void> atualizarTabela(Database db, int oldVersion, int newVersion) async {
+    /*
+    * Este método é chamado automaticamente pelo sistema quando a versão do banco de dados é atualizada.
+    * Basicamente, ele verifica se a versão antiga do banco de dados é menor que a nova versão e,
+    * em caso afirmativo, exclui o banco de dados antigo e cria um novo com a nova versão. Para isso,
+    * ele utiliza o método "deleteDatabase" para excluir o banco de dados antigo e "criarTabela"
+    * para criar o novo banco de dados com a nova versão.
+    *
+    * */
+
+    if (oldVersion < newVersion) {
+      print('ATUALIZANDO TABELA MUSICA!!!!!!!!!!!');
+      final dbPath = await getDatabasesPath();
+      final path = join(dbPath, 'ensaios.db');
+      await deleteDatabase(path);
+      await criarTabela(db, newVersion);
+    }
+  }
 
   @override
   Future<Database?> dropDB() async {

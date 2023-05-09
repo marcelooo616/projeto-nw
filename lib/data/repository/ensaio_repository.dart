@@ -1,4 +1,7 @@
 
+
+
+
 import 'package:projeto_nw/data/database/ensaio_campos.dart';
 import 'package:projeto_nw/data/database/ensaio_database_helper.dart';
 import 'package:projeto_nw/entities/ensaio.dart';
@@ -40,4 +43,21 @@ class EnsaioDatabase {
       return Ensaio.fromMap(maps[i]);
     });
   }
+
+  Future<Map<String, dynamic>> buscarEnsaioPorId(int id) async {
+    final Database db = await helper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      EnsaioDatabaseHelper.instance.tableEnsaio,
+      where: '${EnsaioFields.id} = ?',
+      whereArgs: [id],
+    );
+    if (maps.isNotEmpty) {
+      return maps.first;
+    }
+    throw Exception("Ensaio não encontrado");
+  }
+
+
+
+
 }
