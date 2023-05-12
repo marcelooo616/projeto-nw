@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_nw/ui/pages/home/home_cantores_page.dart';
-import 'package:projeto_nw/ui/pages/home/home_musica_page.dart';
-import 'package:projeto_nw/ui/pages/home/home_page.dart';
-import 'package:projeto_nw/ui/pages/home/home_repertorios_page.dart';
-import 'package:projeto_nw/ui/pages/home_screen_state.dart';
-import 'package:projeto_nw/ui/pages/screens/detail_screen/detalhes_evento_page.dart';
-import 'package:projeto_nw/ui/pages/screens/detail_screen/detalhes_playlist_page.dart';
-import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_cantores_page.dart';
-import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_cifra_musical.dart';
-import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_ensaio_page.dart';
-import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_evento_page.dart';
-import 'package:projeto_nw/ui/pages/screens/forms_screen/adicionar_musica_page.dart';
-import 'package:projeto_nw/ui/widgets/widget_lista_de_musicas.dart';
-import 'package:projeto_nw/util/app_colors.dart';
+import 'package:projeto_nw/view/ui/pages/detail_screen/detalhes_evento_page.dart';
+import 'package:projeto_nw/view/ui/pages/detail_screen/detalhes_playlist_page.dart';
+import 'package:projeto_nw/view/ui/pages/forms_screen/adicionar_ensaio_page.dart';
+import 'package:projeto_nw/view/ui/pages/forms_screen/adicionar_musica_page.dart';
+import 'package:projeto_nw/view/ui/pages/home/home_cantores_page.dart';
+import 'package:projeto_nw/view/ui/pages/home/home_cursos_page.dart';
+import 'package:projeto_nw/view/ui/pages/home/home_musica_page.dart';
+import 'package:projeto_nw/view/ui/pages/home/home_page.dart';
+import 'package:projeto_nw/view/ui/pages/home/home_repertorios_page.dart';
+import 'package:projeto_nw/view/ui/pages/home_screen_state.dart';
+
+import 'package:projeto_nw/view/ui/pages/forms_screen/adicionar_cantores_page.dart';
+import 'package:projeto_nw/view/ui/pages/forms_screen/adicionar_cifra_musical.dart';
+import 'package:projeto_nw/view/ui/pages/forms_screen/adicionar_evento_page.dart';
+import 'package:projeto_nw/view/ui/widgets/widget_lista_de_musicas.dart';
+import 'package:projeto_nw/util/color/app_colors.dart';
 
 
 void main()  {
@@ -44,7 +46,9 @@ class MyApp extends StatelessWidget {
         '/detalhes_playlist': (context) => DetalhesPlaylist(),
         '/adicionarEvento': (context) => AdicionarEventoPage(),
         '/detalhesEvento': (context) => DetalhesEvento(),
+        '/cursos': (context) => CursosPage(),
       },
+
     );
   }
 }
