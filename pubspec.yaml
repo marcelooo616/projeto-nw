@@ -49,6 +49,11 @@ dependencies:
   #csv: ^4.0.4
   flutter_colorpicker: ^1.0.3
   json_annotation: ^4.4.0
+  #html_editor_enhanced: ^2.5.0
+
+
+
+
 
 
 
@@ -142,3 +147,9 @@ flutter:
     - family: Varela
       fonts:
         - asset: fonts/static/VarelaRound-Regular.ttf
+    - family: Calendar
+      fonts:
+        - asset: fonts/static/Calendar.ttf
+    - family: MyFlutterApp
+      fonts:
+        - asset: fonts/static/MyFlutterApp.ttf
